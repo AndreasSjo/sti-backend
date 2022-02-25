@@ -16,7 +16,7 @@ app.use(cors())
 }) */
 
 
-   app.get("/", (req ,res)=>{
+/*    app.get("/", (req ,res)=>{
    headers={"http_status":200, "cache-control":  "no-cache"}
    body=
    [
@@ -44,7 +44,14 @@ app.use(cors())
    res.set('Content-Type', 'application/json');
    res.status(200).send(body)
 })    
-       
+   */    
+   
+const data = require('data.json')
+
+app.get('/', function (req, res) {
+  res.header("Content-Type",'application/json');
+  res.send(data.json);
+})
 
   
 
