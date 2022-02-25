@@ -89,7 +89,7 @@ app.listen(PORT , ()=>{
    ]
 }) */
 
-var objPeople = [
+var objUser = [
    {
       id: 1,
       username: "Quentin",
@@ -109,6 +109,12 @@ var objPeople = [
       id: 4,
       username: "Brad",
       password: "Se7en"
+   }
+]
+
+var objUserRating = [
+   {
+      id: 1,
    }
 ]
 
