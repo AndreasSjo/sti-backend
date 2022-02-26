@@ -17,7 +17,11 @@ app.use(cors())
    res.sendFile(path.join(__dirname, '/movies.json'));
 }) 
 
+app.get("/users", (req ,res)=>{
+   headers={"http_status":200, "cache-control":  "no-cache"}
 
+   res.sendFile(path.join(__dirname, '/users.json'));
+}) 
 
 app.get("/ratings", (req ,res)=>{
    headers={"http_status":200, "cache-control":  "no-cache"}
