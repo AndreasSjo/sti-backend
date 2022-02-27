@@ -23,6 +23,12 @@ app.get("/users", (req ,res)=>{
    res.sendFile(path.join(__dirname, '/users.json'));
 }) 
 
+app.get("/ratings", (req ,res)=>{
+   headers={"http_status":200, "cache-control":  "no-cache"}
+
+   res.sendFile(path.join(__dirname, '/ratings.json'));
+}) 
+
 app.put("/ratings", (req ,res)=>{
    headers={"http_status":200, "cache-control":  "no-cache"}
 
