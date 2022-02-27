@@ -19,53 +19,10 @@ app.use(cors())
 
 
 
-app.get("/ratings", (req ,res)=>{
+app.put("/ratings", (req ,res)=>{
    headers={"http_status":200, "cache-control":  "no-cache"}
-   body=
-   [
-      {    
-      "title" : "Jaws",
-      "userId": "1",
-      "rating": "1"
-  },
-      {
-       "title" : "Pulp Fiction",
-      "userId": "1",
-      "rating": "3"
-      },
-  {
-   "title" : "Back to the future",
-   "userId": "1",
-   "rating": "1"
-  },
-  {
-      "title" : "Star Wars",
-      "userId": "1",
-      "rating": "1"
-  },
-  {    
-   "title" : "Jaws",
-   "userId": "2",
-   "rating": "3"
-},
-   {
-    "title" : "Pulp Fiction",
-   "userId": "2",
-   "rating": "3"
-   },
-{
-"title" : "Back to the future",
-"userId": "2",
-"rating": "1"
-},
-{
-   "title" : "Star Wars",
-   "userId": "1",
-   "rating": "1"
-}
-]
-   res.set('Content-Type', 'application/json');
-   res.status(200).send(body)
+
+   res.sendFile(path.join(__dirname, '/ratings.json'));
 }) 
        
 

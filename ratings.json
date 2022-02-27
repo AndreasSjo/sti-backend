@@ -1,0 +1,85 @@
+[
+{    
+    "title" : "Jaws",
+    "userId": "1",
+    "rating": "1"
+},
+{
+    "title" : "Pulp Fiction",
+    "userId": "1",
+    "rating": "3"
+},
+{
+    "title" : "Back to the future",
+    "userId": "1",
+    "rating": "1"
+},
+{
+    "title" : "Star Wars",
+    "userId": "1",
+    "rating": "1"
+},
+
+{    
+ "title" : "Jaws",
+ "userId": "2",
+ "rating": "3"
+},
+{
+  "title" : "Pulp Fiction",
+ "userId": "2",
+ "rating": "3"
+ },
+{
+"title" : "Back to the future",
+"userId": "2",
+"rating": "1"
+},
+{
+ "title" : "Star Wars",
+ "userId": "2",
+ "rating": "1"
+},
+
+{    
+    "title" : "Jaws",
+    "userId": "3",
+    "rating": "1"
+   },
+   {
+     "title" : "Pulp Fiction",
+    "userId": "3",
+    "rating": "3"
+    },
+   {
+   "title" : "Back to the future",
+   "userId": "3",
+   "rating": "1"
+   },
+   {
+    "title" : "Star Wars",
+    "userId": "3",
+    "rating": "1"
+   },
+
+   {    
+    "title" : "Jaws",
+    "userId": "4",
+    "rating": "2"
+   },
+   {
+     "title" : "Pulp Fiction",
+    "userId": "4",
+    "rating": "2"
+    },
+   {
+   "title" : "Back to the future",
+   "userId": "4",
+   "rating": "1"
+   },
+   {
+    "title" : "Star Wars",
+    "userId": "4",
+    "rating": "3"
+   }
+]
