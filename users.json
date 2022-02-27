@@ -1,21 +1,43 @@
-[{
-    "id": 1,
-    "username": "Quentin",
-    "password": "KillBill"
- },
- {
-    "id": 2,
-    "username": "Kate",
-    "password": "Titanic"
- },
- {
-    "id": 3,
-    "username": "Morgan",
-    "password": "Shawshank"
- },
- {
-    "id": 4,
-    "username": "Brad",
-    "password": "Se7en"
- }
-]
+ [  
+    {
+      "id": 1,
+      "username": "Quentin",
+      "password": "KillBill"
+   },
+   {
+      "id": 2,
+      "username": "Kate",
+      "password": "Titanic"
+   },
+   {
+      "id": 3,
+      "username": "Morgan",
+      "password": "Shawshank"
+   },
+   {
+      "id": 4,
+      "username": "Brad",
+      "password": "Se7en"
+   },
+
+{
+   "status": "ok",
+   "message": "Logged in",
+   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cC...",
+   "user": {
+       "id": 1,
+       "username": "Quentin"
+   }
+
+},
+
+{
+   "status": "error",
+   "message": "Missing username and/or password"
+},
+
+{
+   "status": "error",
+   "message": "Login failed"
+}
+ ]
