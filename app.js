@@ -4,6 +4,37 @@ const express = require("express");
 
 const app = express()
 const PORT = process.env.PORT || 3001
+
+class User{
+   constructor(name, password){
+      this.name = name
+      this.password = password
+   }
+}
+
+let users = []
+users.push(new User("name1", "password1"))
+users.push(new User("name2", "password2"))
+users.push(new User("name3", "password3"))
+
+let users2 = {} /* Fungerar inte */
+console.log("we are going to loop!")
+for(user in users){
+   console.log(users[user].name)
+   users2[users[user].name] = users[user].password 
+}
+
+app.get("/auth", (req ,res)=>{
+   headers={"http_status":200, "cache-control":  "no-cache"}
+   let user = req.query.user
+   let password = req.query.password
+   let isAuth = req.query.password === "password"
+   console.log(user)
+   console.log(password)
+   console.log(users2["user1"])
+   res.send({"exits": isAuth})
+})
+
 /********************/ 
 const path = require('path');
 /******************* */
@@ -17,11 +48,19 @@ app.use(cors())
    res.sendFile(path.join(__dirname, '/movies.json'));
 }) 
 
+
 app.post("/users", (req ,res)=>{
    headers={"http_status":200, "cache-control":  "no-cache"}
 
    res.sendFile(path.join(__dirname, '/users.json'));
-}) 
+})
+
+app.get("/users", (req ,res)=>{
+   headers={"http_status":200, "cache-control":  "no-cache"}
+
+   res.send(users)
+   //res.sendFile(path.join(__dirname, '/users.json'));
+})
 
 app.get("/ratings", (req ,res)=>{
    headers={"http_status":200, "cache-control":  "no-cache"}
