@@ -1,6 +1,6 @@
 const cors = require("cors")
 const express = require("express");
-const { header } = require("express/lib/request");
+//const { header } = require("express/lib/request");
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -17,7 +17,7 @@ app.use(cors())
    res.sendFile(path.join(__dirname, '/movies.json'));
 }) 
 
-app.get("/users", (req ,res)=>{
+app.post("/users", (req ,res)=>{
    headers={"http_status":200, "cache-control":  "no-cache"}
 
    res.sendFile(path.join(__dirname, '/users.json'));
