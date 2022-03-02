@@ -5,39 +5,18 @@ const express = require("express");
 const app = express()
 const PORT = process.env.PORT || 3001
 
-class User{
-   constructor(name, password){
-      this.name = name
-      this.password = password
-   }
-}
+const session = require('express-session');
+const mysql = require('mysql');
+var path = require('path')
+const connection = mysql.createConnection({
+	host     : 'localhost',
+	user     : 'root',
+	password : 'root',
+	database : 'filmerDB'
+});
 
-let users = []
-users.push(new User("name1", "password1"))
-users.push(new User("name2", "password2"))
-users.push(new User("name3", "password3"))
 
-let users2 = {} /* Fungerar inte */
-console.log("we are going to loop!")
-for(user in users){
-   console.log(users[user].name)
-   users2[users[user].name] = users[user].password 
-}
 
-app.get("/auth", (req ,res)=>{
-   headers={"http_status":200, "cache-control":  "no-cache"}
-   let user = req.query.user
-   let password = req.query.password
-   let isAuth = req.query.password === "password"
-   console.log(user)
-   console.log(password)
-   console.log(users2["user1"])
-   res.send({"exits": isAuth})
-})
-
-/********************/ 
-const path = require('path');
-/******************* */
 app.use('/healthcheck', require('./routes/healthcheck.routes'));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors())
@@ -48,19 +27,55 @@ app.use(cors())
    res.sendFile(path.join(__dirname, '/movies.json'));
 }) 
 
+app.put('/auth', function(request, response) {
+	console.log("auth anropet fungerar")
+	// Capture the input fields
+	let username = request.body.username;
+	let password = request.body.password;
+	// Ensure the input fields exists and are not empty
+	if (username && password) {
+		console.log("username och password fungerar ")
+		// Execute SQL query that'll select the account from the database based on the specified username and password
+		connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+			// If there is an issue with the query, output the error
+			if (error) throw error;
+			// If the account exists
+			if (results.length > 0) {
+				// Authenticate the user
+				request.session.loggedin = true;
+				request.session.username = username;
+				// Redirect to home page
+				response.redirect('/index.html');
+			} else {
+				response.send('Incorrect Username and/or Password!');
+			}			
+			response.end();
+		});
+	} else {
+		response.send('Please enter Username and Password!');
+		response.end();
+	}
+});
+
+// http://localhost:3000/home
+app.get('/index', function(request, response) {
+	// If the user is loggedin
+	if (request.session.loggedin) {
+		// Output username
+		response.send('Welcome back, ' + request.session.username + '!');
+	} else {
+		// Not logged in
+		response.send('Please login to view this page!');
+	}
+	response.end();
+});
 
 app.post("/users", (req ,res)=>{
    headers={"http_status":200, "cache-control":  "no-cache"}
-
-   res.sendFile(path.join(__dirname, '/users.json'));
+	console.log("koppling fungerar")
+   /* res.sendFile(path.join(__dirname, '/users.json')); */
 })
 
-app.get("/users", (req ,res)=>{
-   headers={"http_status":200, "cache-control":  "no-cache"}
-
-   res.send(users)
-   //res.sendFile(path.join(__dirname, '/users.json'));
-})
 
 app.get("/ratings", (req ,res)=>{
    headers={"http_status":200, "cache-control":  "no-cache"}
@@ -82,73 +97,3 @@ app.listen(PORT , ()=>{
 });
 
 
-/* ------------------------------- Login Script --------------------------------- */
-
-/* app.get("/user", (req ,res)=>{
-   headers={"http_status":200, "cache-control": "no-cache"}
-   body=
-   [
-      {
-         "id": 1,
-         "username": "Quentin",
-         "password": "KillBill"
-      },
-      {
-         "id": 2,
-         "username": "Kate",
-         "password": "Titanic"
-      },
-      {
-         "id": 3,
-         "username": "Morgan",
-         "password": "Shawshank"
-      },
-      {
-         "id": 4,
-         "username": "Brad",
-         "password": "Se7en"
-      }
-   ]
-}) */
-
-var objUser = [
-   {
-      id: 1,
-      username: "Quentin",
-      password: "KillBill"
-   },
-   {
-      id: 2,
-      username: "Kate",
-      password: "Titanic"
-   },
-   {
-      id: 3,
-      username: "Morgan",
-      password: "Shawshank"
-   },
-   {
-      id: 4,
-      username: "Brad",
-      password: "Se7en"
-   }
-]
-
-var objUserRating = [
-   {
-      id: 1,
-   }
-]
-
-function getInfo(){
-   var username = document.getElementById("username").value
-   var password = document.getElementById("password").value
-
-   for(i = 0; i < objPeople.length; i++){
-      if(username ==objPeople[i].username && password == objPeople[i].password){
-         console.log(username + " är inloggad")
-         return
-      }
-   }
-   console.log("Felaktigt användarnamn eller lösenord")
-}
