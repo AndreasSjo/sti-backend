@@ -9,7 +9,7 @@ const session = require('express-session');
 const mysql = require('mysql');
 var path = require('path')
 const connection = mysql.createConnection({
-	host     : 'localhost',
+	host     : 'localhost:3306',
 	user     : 'root',
 	password : 'root',
 	database : 'filmerDB'
@@ -45,7 +45,7 @@ app.put('/auth', function(request, response) {
 				request.session.loggedin = true;
 				request.session.username = username;
 				// Redirect to home page
-				response.redirect('/index.html');
+				response.redirect('localhost:3000/index.html');
 			} else {
 				response.send('Incorrect Username and/or Password!');
 			}			
@@ -70,10 +70,9 @@ app.get('/index', function(request, response) {
 	response.end();
 });
 
-app.post("/users", (req ,res)=>{
+app.get("/users", (req ,res)=>{
    headers={"http_status":200, "cache-control":  "no-cache"}
-	console.log("koppling fungerar")
-   /* res.sendFile(path.join(__dirname, '/users.json')); */
+    res.sendFile(path.join(__dirname, '/users.json')); 
 })
 
 
@@ -83,7 +82,7 @@ app.get("/ratings", (req ,res)=>{
    res.sendFile(path.join(__dirname, '/ratings.json'));
 }) 
 
-app.put("/ratings", (req ,res)=>{
+app.post("/ratings", (req ,res)=>{
    headers={"http_status":200, "cache-control":  "no-cache"}
 
    res.sendFile(path.join(__dirname, '/ratings.json'));
